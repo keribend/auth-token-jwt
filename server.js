@@ -50,7 +50,21 @@ app.get('/setup', function(req, res) {
 // get an instance of the router for api routes
 var apiRoutes = express.Router();
 
-// TODO: route to authenticate a user (POST http://localhost:8080/api/authenticate)
+// route to authenticate a user (POST http://localhost:8080/api/authenticate)
+apiRoutes.post('/authenticate', function(req, res) {
+	// find the user
+	User.findOne({
+		email: req.body.email
+	}, function(err, user) {
+		if (err) throw err;
+		if (!user) {
+			res.json({ success: false, message: 'Authentication failed. User or password incorrect.' });
+		} else if (user) {
+			// check if password matches
+			if (user.password != req.body.password) {
+				res.json({ success: false, message: 'Authentication failed. User or password incorrect.' });
+			} else {
+				var token = jwt.sign({ email: user.email}, app.get('superSecret'), { expiresIn: 60*60*24 });
 
 // TODO: route middleware to verify a token
 
