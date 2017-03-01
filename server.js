@@ -119,5 +119,6 @@ apiRoutes.get('/users', function(req, res) {
 app.use('/api', apiRoutes);
 
 // start the server
-app.listen(port);
-console.log('Magic happens at http://localhost:'+port);
+app.listen(port, function() {
+	console.log('Magic happens at http://localhost:', app.get('port'));
+});
