@@ -11,7 +11,7 @@ var config = require('./config'); // get our config file
 var User = require('./app/models/user'); // get our mongoose model
 
 // configuration
-var port = process.env.PORT || 8080;
+app.set('port', (process.env.PORT || 5000));
 mongoose.connect(config.database); // connect to database
 app.set('superSecret', config.secret); // secret variable
 
