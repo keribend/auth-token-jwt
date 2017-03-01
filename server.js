@@ -12,6 +12,7 @@ var User = require('./app/models/user'); // get our mongoose model
 
 // configuration
 app.set('port', (process.env.PORT || 5000));
+var port = app.get('port');
 mongoose.connect(config.database); // connect to database
 app.set('superSecret', config.secret); // secret variable
 
@@ -120,5 +121,5 @@ app.use('/api', apiRoutes);
 
 // start the server
 app.listen(port, function() {
-	console.log('Magic happens at http://localhost:', app.get('port'));
+	console.log('Magic happens at http://localhost:', port);
 });
